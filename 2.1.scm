@@ -1,0 +1,5 @@
+(define (make-rat n d)
+  (let ((g (gcd n d)))
+    (cond ((and (< d 0) (not (< n 0))) (cons (/ (* n -1) g) (/ (* d -1) g)))
+          ((and (< d 0) (< n 0)) (cons (/ (* n -1) g) (/ (* d -1) g)))
+          (else (cons (/ n g) (/ d g))))))
