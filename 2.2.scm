@@ -25,3 +25,31 @@
   (go (if (= (remainder (car l) 2) 0) 0 1)
       l 
       '()))
+
+;; Ex 2.21
+;; ==============
+(define (square-list items)
+  (if (null? items)
+      '()
+      (cons (* (car items)
+               (car items))
+            (square-list (cdr items)))))
+
+(define (square-list items)
+  (map (lambda (x) (* x x)) items))
+
+;; Ex 2.22
+;; ==============
+;; consing nil to a list stays in the list as an element
+
+;; Ex 2.23
+;; =============
+
+;; Implementation of for-each
+
+(define (for-each proc items)
+  (define (for-each-iter proc items rv)
+    (if (null? items)
+        #t
+        (for-each-iter proc (cdr items) (proc (car items)))))
+  (for-each-iter proc items #t))
