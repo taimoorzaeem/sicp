@@ -8,8 +8,7 @@
 ;; ===============
 (define (reverse l)
   (cond ((null? l) '())
-        ((null? (cdr l)) (car l))
-        (else (cons (reverse (cdr l)) (car l)))))
+        (else (append (reverse (cdr l)) (list (car l))))))
 
 ;; 2.20
 ;; ===============
@@ -53,3 +52,51 @@
         #t
         (for-each-iter proc (cdr items) (proc (car items)))))
   (for-each-iter proc items #t))
+
+
+;; Ex 2.24
+;; =============
+
+;; Given: (list 1 (list 2 (list 3 4)))
+;; Box-and-pointer structure
+
+;; (1(2(3 4)     (2(3 4)         (3 4)           4
+;;   |.|.|------> |.|.|--------> |.|.|--------> |.|/|
+;;    |            |              |              |
+;;    |            |              |              |
+;;    v            v              v              v
+;;    1            2              3              4
+
+;; Tree structure
+;;
+;;                (1 (2 (3 4)))
+;;                    /  \
+;;                   /    \
+;;                  /      \
+;;                 1       (2 (3 4))
+;;                            / \
+;;                           /   \
+;;                          /     \
+;;                         2     (3 4)
+;;                                / \
+;;                               /   \
+;;                              /     \
+;;                             3       4  
+;;
+
+
+;; Ex 2.25
+;; ================
+;; Pick 7 using cars and cdrs
+;;
+;; x = (1 3 (5 7) 9)
+;; y = ((7))
+;; z = (1 (2 (3 (4 (5 (6 7))))))
+
+;; (car (cdr (car (cdr (cdr x)))))
+;; (car (car y))
+;; (car (cdr (cdr (cdr (cdr (cdr (cdr z)))))))
+
+;; Ex 2.27
+;; ===============
+
