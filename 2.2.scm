@@ -99,4 +99,16 @@
 
 ;; Ex 2.27
 ;; ===============
+(define (deep-reverse l)
+  (cond ((null? l) '())
+        ((not (pair? l)) l)
+        (else (append (deep-reverse (cdr l))
+                      (list (deep-reverse (car l)))))))
 
+
+;; Ex 2.28
+;; ===============
+(define (fringe x)
+  (cond ((null? x) '())
+        ((not (pair? x)) (list x))
+        (else (append (fringe (car x)) (fringe (cdr x))))))
