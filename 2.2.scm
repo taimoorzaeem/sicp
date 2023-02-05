@@ -69,19 +69,19 @@
 
 ;; Tree structure
 ;;
-;;                (1 (2 (3 4)))
-;;                    /  \
-;;                   /    \
-;;                  /      \
-;;                 1       (2 (3 4))
-;;                            / \
-;;                           /   \
-;;                          /     \
-;;                         2     (3 4)
-;;                                / \
-;;                               /   \
-;;                              /     \
-;;                             3       4  
+;;       (1 (2 (3 4)))
+;;           /  \
+;;          /    \
+;;         /      \
+;;        1       (2 (3 4))
+;;                   / \
+;;                  /   \
+;;                 /     \
+;;                2     (3 4)
+;;                       / \
+;;                      /   \
+;;                     /     \
+;;                    3       4  
 ;;
 
 
@@ -128,3 +128,41 @@
               (square-tree-map sub-tree)
               (* sub-tree sub-tree)))
        tree))
+
+;; Ex 2.31
+;; ==============
+(define (tree-map f tree)
+  (map (lambda (sub-tree)
+          (if (pair? sub-tree)
+              (tree-map f sub-tree)
+              (f sub-tree)))
+       tree))
+
+(define (square-tree tree)
+  (tree-map (lambda (x) (* x x)) tree))
+
+;; Ex 2.32
+;; ==============
+(define (subsets s)
+  (if (null? s)
+      (list '())
+      (let ((rest (subsets (cdr s))))
+        (append rest
+                (map (lambda (subset) 
+                        (append (list (car s)) 
+                                subset))
+                      rest)))))
+
+;;  Explanation of Ex 2.32:
+;;  ===============
+;;  The reason why this works is because
+;;  for every item in the list, we just append
+;;  the subsets of the rest of the list to the
+;;  list containing the one item
+;;
+;;  for example:
+;;  subsets (1) we append (()) to (list 1) and then 
+;;      append it back to (()) = (() (1))
+;;  subsets (1 2) we append (() (2)) to (list 1) and
+;;      then append it back to (() (2) = (() (2) (1) (1 2))
+;;  and so on ...
