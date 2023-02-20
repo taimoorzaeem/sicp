@@ -166,3 +166,21 @@
 ;;  subsets (1 2) we append (() (2)) to (list 1) and
 ;;      then append it back to (() (2) = (() (2) (1) (1 2))
 ;;  and so on ...
+
+
+;; Ex 2.33
+;; ================
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+
+(define (map p sequence)
+  (accumulate (lambda (x y) (cons (p x) y)) '() sequence))
+
+(define (append seq1 seq2)
+  (accumulate cons seq2 seq1))
+
+(define (length sequence)
+  (accumulate (lambda (x y) (+ 1 y)) 0 sequence))
