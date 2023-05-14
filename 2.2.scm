@@ -192,3 +192,15 @@
                 (+ this-coeff (* x higher-terms)))
               0 
               coefficient-sequence))
+
+
+;; Ex 2.35
+;; ===============
+(define (count-leaves t)
+  (accumulate (lambda (x y) (+ x y)) 
+              0 
+              (map (lambda (x) 
+                     (if (pair? x)
+                         (count-leaves x)
+                         1)) 
+                   t)))
