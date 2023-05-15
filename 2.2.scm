@@ -176,8 +176,8 @@
       (op (car sequence)
           (accumulate op initial (cdr sequence)))))
 
-(define (map p sequence)
-  (accumulate (lambda (x y) (cons (p x) y)) '() sequence))
+;;(define (map p sequence)
+;;  (accumulate (lambda (x y) (cons (p x) y)) '() sequence))
 
 (define (append seq1 seq2)
   (accumulate cons seq2 seq1))
@@ -204,3 +204,12 @@
                          (count-leaves x)
                          1)) 
                    t)))
+
+
+;; Ex 2.36
+;; ===============
+(define (accumulate-n op init seqs)
+  (if (null? (car seqs))
+      '()
+      (cons (accumulate op init (map (lambda (x) (car x)) seqs))
+            (accumulate-n op init (map (lambda (x) (cdr x)) seqs)))))
