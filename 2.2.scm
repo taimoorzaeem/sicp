@@ -232,3 +232,28 @@
     (map (lambda (x) (matrix-*-vector cols x)) m)))
 
 
+;; Ex 2.38
+;; ===============
+(define fold-right accumulate)
+
+(define (fold-left op init sequence)
+  (define (iter result rest)
+    (if (null? rest)
+        result
+        (iter (op result (car rest))
+              (cdr rest))))
+  (iter init sequence))
+
+;; If the op is commutative then, the fold-left and fold-right 
+;; will give the same answer for any sequence
+;;
+;; Example + is commutative but / is not commutative
+
+
+;; Ex 2.39
+;; ================
+(define (reverse sequence)
+  (fold-right (lambda (x y) (append y (list x))) '() sequence))
+(define (reverse sequence)
+  (fold-left (lambda (x y) (cons y x)) '() sequence))
+
