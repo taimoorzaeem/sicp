@@ -296,3 +296,16 @@
        (filter prime-sum? (unique-pairs n))))
 
 
+
+;; Ex 2.41
+;; =================
+
+(define (ordered-triples n s)
+  (filter (lambda (p) (= (+ (car p) (cadr p) (caddr p)) s)) 
+          (flatmap (lambda (i)
+                     (flatmap (lambda (j)
+                                (map (lambda (k) (list i j k))
+                                     (enumerate-interval 1 (- j 1))))
+                              (enumerate-interval 1 (- i 1))))
+                   (enumerate-interval 1 n))))
+
