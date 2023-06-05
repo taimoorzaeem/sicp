@@ -257,3 +257,42 @@
 (define (reverse sequence)
   (fold-left (lambda (x y) (cons y x)) '() sequence))
 
+
+;; Ex 2.40
+;; ================
+
+(define (enumerate-interval m n)
+  (define (enumerate-interval-iter m n res)
+    (if (> m n)
+        res
+        (cons m (enumerate-interval-iter (+ m 1) n res))))
+  (enumerate-interval-iter m n '()))
+
+
+(define (flatmap proc seq)
+  (accumulate append '() (map proc seq)))
+
+;; Simplified
+(define (prime? n)
+  (if (or (= n 2) (= n 3) (= n 5) (= n 7) (= n 11) (= n 13))
+      #t
+      #f))
+
+(define (prime-sum? pair)
+  (prime? (+ (car pair) (cadr pair))))
+
+
+(define (make-pair-sum pair)
+  (list (car pair) (cadr pair) (+ (car pair) (cadr pair))))
+
+(define (unique-pairs n)
+  (flatmap (lambda (i) 
+                   (map (lambda (j) (list i j)) 
+                        (enumerate-interval 1 (- i 1))))
+            (enumerate-interval 1 n)))
+
+(define (prime-sum-pairs n)
+  (map make-pair-sum
+       (filter prime-sum? (unique-pairs n))))
+
+
