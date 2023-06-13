@@ -309,3 +309,55 @@
                               (enumerate-interval 1 (- i 1))))
                    (enumerate-interval 1 n))))
 
+
+;; Ex 2.42
+;; ================
+
+(define (queens board-size)
+
+  (define empty-board '())
+
+  (define (adjoin-position row col rest)
+    (append rest (list (cons row col))))
+
+  (define (safe? k positions)
+    (define (attacks? q1 q2)
+      (or (= (car q1) (car q2)) ;; check row
+          (= (cdr q1) (cdr q2)) ;; check column
+          (= (abs (- (car q1) (car q2))) ;; check diagonal
+             (abs (- (cdr q1) (cdr q2))))))
+
+    (define (iter q rest)
+      (or (null? rest)
+          (and (not (attacks? q (car rest)))
+               (iter q (cdr rest)))))
+
+
+    (let ((kth-queen (list-ref positions (- k 1)))
+          (other-queens (filter (lambda (q)
+                                  (not (= k (cdr q))))
+                                positions)))
+
+    (iter kth-queen other-queens)))
+
+
+  (define (queen-cols k)
+    (if (= k 0)
+        (list empty-board)
+        (filter
+          (lambda (positions) (safe? k positions))
+          (flatmap
+            (lambda (rest-of-queens)
+              (map (lambda (new-row)
+                     (adjoin-position
+                      new-row k rest-of-queens))
+                   (enumerate-interval 1 board-size)))
+            (queen-cols (- k 1))))))
+  (queen-cols board-size))
+
+
+;; Ex 2.43
+;; =================
+
+;; In this case the procedure will take exponential time
+;; so the program will finish in T^board-size
