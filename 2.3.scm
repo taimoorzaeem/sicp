@@ -22,3 +22,19 @@
         ((not (or (pair? a) 
                   (pair? b))) (eq? a b))
         (else #f)))
+
+
+
+;; Ex 2.55
+;; ===============
+
+;; (car ''abracadabra)
+;;
+;; This is syntacticly equivalent to:
+;;
+;; (car (quote (quote abracadabra)))
+;;
+;; Hence, (quote (quote abracadabra)) would return the list
+;; of symbols 'quote and 'abracadabra i.e. (quote abracadabra),
+;; and so the car of that would take the first the list which is
+;; the symbol quote.
