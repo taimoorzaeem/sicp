@@ -186,3 +186,12 @@
           (union-set (cdr set1) set2))
         (else (cons (car set1) (union-set (cdr set1) set2)))))
 
+
+;; Ex 2.60
+;; ==============
+
+(define (adjoin-set x set)
+  (cons x set))
+
+(define (union-set set1 set2)
+  (append set1 set2))
