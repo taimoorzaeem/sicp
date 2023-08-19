@@ -16,3 +16,13 @@
           calls
           (begin (set! calls (+ calls 1))
                  (f input))))))
+
+;; Ex 3.8
+;; =================
+
+(define f
+  (let ((c 1))
+    (lambda (n)
+      (begin (set! c (* c n))
+             c))))
+
