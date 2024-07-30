@@ -159,3 +159,5 @@ define (sequence->exp seq)
 (define (rest-operands ops) (cdr ops)
 
 
+(define (cond? exp) (tagged-list? exp 'cond))
+(define (cond-classses exp) (cdr exp))
