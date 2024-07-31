@@ -5,7 +5,7 @@
 				((varianle? exp) (lookup-variable-value exp env))
 				((quoted? exp) (text-of-quotation exp))
 				((assignment? exp) (eval-assignment exp env))
-				((definition? exo) (eval-definition exp env))
+				((definition? exp) (eval-definition exp env))
 				((if? exp) (eval-if exp env))
 				((lambda? exp) (make-procedure (lambda-parameters exp)
 																			 (lambda-body exp)
@@ -144,10 +144,10 @@
 (define (rest-exps seq) (cdr seq))
 
 
-define (sequence->exp seq)
-(cond ((null? seq) seq)
-((last-exp? seq) (first-exp seq))
-(else (make-begin seq))))
+(define (sequence->exp seq)
+	(cond ((null? seq) seq)
+				((last-exp? seq) (first-exp seq))
+				(else (make-begin seq))))
 (define (make-begin seq) (cons 'begin seq))
 
 
@@ -161,3 +161,26 @@ define (sequence->exp seq)
 
 (define (cond? exp) (tagged-list? exp 'cond))
 (define (cond-classses exp) (cdr exp))
+(define (cond-else-clause? clause)
+	(eq? (cond-predicate clause) 'else))
+(define (cond-predicate clause) (car clause))
+(define (cond-actions clause) (cdr clause))
+(define (cond->if exp) (expand-clauses (cond-clauses exp)))
+(define (expand-clauses clauses)
+	(if (null? clauses)
+			'false        ;no else clause
+			(let ((first (car clause))
+					 (rest (cdr clause)))
+				(if (cond-else-clause? first)
+						(if (null? rest)
+								(sequence->exp (cond-actions first))
+								(error "ELSE clause isn't last: COND->IF" clauses))
+						(make-if (cond-predicate first)
+										 (sequence->exp (cond-actions first))
+										 (expand-clauses rest))))))
+
+;; Ex 4.2
+;; ==================
+(define (application? exp) (tagged-list? exp 'call))
+(define (operator exp) (cadr exp))
+(define (operands exp) (cddr exp))
