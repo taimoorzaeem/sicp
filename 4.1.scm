@@ -220,3 +220,16 @@
 	(if (eq? (eval (car exp) env) #t)
 			#t
 			(eval-or (cdr exp) env)))
+
+
+;; Ex 4.6
+;; ================
+
+(define (let-vars exp) (map car (cadr exp)))
+(define (let-exps exp) (map cadr (cadr exp)))
+(define (let-body exp) (cddr exp))
+
+(define (let->combination exp)
+	(cons (make-lambda (let-vars exp) 
+										 (let-body exp)) 
+				(let-exp exp)))
