@@ -184,3 +184,39 @@
 (define (application? exp) (tagged-list? exp 'call))
 (define (operator exp) (cadr exp))
 (define (operands exp) (cddr exp))
+
+
+;; Ex 4.4
+;; ==================
+
+(define (eval exp env)
+	(cond ((self-evaluating? exp) exp)
+				((varianle? exp) (lookup-variable-value exp env))
+				((quoted? exp) (text-of-quotation exp))
+				((assignment? exp) (eval-assignment exp env))
+				((definition? exp) (eval-definition exp env))
+				((and? exp) (eval-and (cdr exp) env))
+				((or? exp) (eval-or (cdr exp) env))
+				((if? exp) (eval-if exp env))
+				((lambda? exp) (make-procedure (lambda-parameters exp)
+																			 (lambda-body exp)
+																			 env))
+				((begin? exp)
+			   (eval-sequence (begin-actions exp) env))
+				((cond? exp) (eval (cond->if exp) env))
+				((application? exp)
+				 (apply (eval (operator exp) env)
+								(list-of-values	(operands exp) env)))
+				(else
+					(error "Unknown expression type: EVAL" exp))))
+
+
+(define (eval-and exp env)
+	(if (eq? (eval (car exp) env) #f)
+			#f
+			(eval-and (cdr exp) env)))
+
+(define (eval-or exp env)
+	(if (eq? (eval (car exp) env) #t)
+			#t
+			(eval-or (cdr exp) env)))
