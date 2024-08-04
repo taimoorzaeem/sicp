@@ -233,3 +233,35 @@
 	(cons (make-lambda (let-vars exp) 
 										 (let-body exp)) 
 				(let-exp exp)))
+
+
+
+
+(define (true? x) (not (eq? x false)))
+(define (false? x) (eq? x false))
+
+
+define (make-procedure parameters body env)
+  (list 'procedure parameters body env))
+(define (compound-procedure? p)
+  (tagged-list? p 'procedure))
+(define (procedure-parameters p) (cadr p))
+(define (procedure-body p) (caddr p))
+(define (procedure-environment p) (cadddr p))
+
+
+(define (enclosing-environment env) (cdr env))
+(define (first-frame env) (car env))
+(define the-empty-environment '())
+
+
+
+;; Ex 4.11
+;; =================
+
+(define (make-frame variables values)
+  (map cons variables values))
+(define (frame-variables frame) (map car frame))
+(define (frame-values frame) (map cdr frame))
+(define (add-binding-to-frame var val frame)
+  (cons (cons var val) frame))
