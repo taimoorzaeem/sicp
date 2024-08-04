@@ -265,3 +265,16 @@ define (make-procedure parameters body env)
 (define (frame-values frame) (map cdr frame))
 (define (add-binding-to-frame var val frame)
   (cons (cons var val) frame))
+
+
+;; Ex 4.15
+;; ================
+
+(define (run-forever) (run-forever))
+(define (try p)
+  (if (halts? p p) (run-forever) 'halted))
+
+;; It is impossible to write a procedure "halts?"
+;; because say if the machine halts it runs forever
+;; and if it doesn't halt it's halted. This is a 
+;; contradiction.
