@@ -278,3 +278,12 @@ define (make-procedure parameters body env)
 ;; because say if the machine halts it runs forever
 ;; and if it doesn't halt it's halted. This is a 
 ;; contradiction.
+
+
+;; Ex 4.21
+;; ===============
+
+((lambda (n)
+    ((lambda (fact) (fact fact n))
+     (lambda (ft k) (if (= k 1) 1 (* k (ft ft (- k 1)))))))
+  10)
