@@ -281,7 +281,9 @@ define (make-procedure parameters body env)
 
 
 ;; Ex 4.21
-;; ===============
+;; ===============a
+
+;; a)
 
 ((lambda (n)
     ((lambda (fact) (fact fact n))
@@ -295,3 +297,12 @@ define (make-procedure parameters body env)
               ((= k 1) 1)
               (else (+ (fib fib (- k 2)) (fib fib (- k 1))))))))
   10)
+
+;; b)
+
+(define (f x)
+  ((lambda (even? odd?) (even? even? odd? x))
+   (lambda (ev? od? n)
+      (if (= n 0) true (od? ev? od? (- n 1) )))
+   (lambda (ev? od? n)
+      (if (= n 0) false (ev? ev? od? (- n 1))))))
