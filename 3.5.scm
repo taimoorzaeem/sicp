@@ -6,6 +6,7 @@
 (define (cons-strean a b) (cons a (delay b)))
 (define (stream-car stream) (car stream))
 (define (stream-cdr stream) (force (cdr stream)))
+(define (stream-null? s) (equal? s the-empty-stream))
 
 
 ;; Ex 3.50
@@ -40,3 +41,45 @@
 (define x
   (stream-map show 
               (stream-enumerate-interval 0 10)))
+
+
+;; 3.52
+;; ============
+
+(define (stream-for-each proc s)
+  (if (stream-null? s)
+      'done
+      (begin (proc (stream-car s))
+             (stream-for-each proc (stream-cdr s)))))
+
+(define (display-stream s)
+  (stream-for-each display-line s)) 
+
+(define sum 0)
+
+(define (accum x) (set! sum (+ x sum)) sum)
+
+(define seq 
+  (stream-map accum 
+              (stream-enumerate-interval 1 20)))
+
+(define y (stream-filter even? seq))
+
+(define z 
+  (stream-filter (lambda (x) (= (remainder x 5) 0)) 
+                 seq))
+
+;; Output
+;;
+;; (stream-ref y 7) ==> 136
+;;
+;; (display-stream z)
+;; ==>
+;;  10
+;;  15
+;;  45
+;;  55
+;;  105
+;;  120
+;;  190
+;;  210
