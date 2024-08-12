@@ -20,3 +20,20 @@
 ;; In a normal-order-language our definition will work, because the argument
 ;; will be passed to unless without being evaluated. They will only be
 ;; evaluated after calling the function `unless`.
+
+
+
+;; Ex 4.27
+;; ============
+
+;; (define count 0)
+;;
+;; (define (id x) (set! count (+ count 1)) x)
+;;
+;; (define w (id (id 10)))
+;; 
+;; Output:
+;;
+;; count ==> 1
+;; w     ==> 10
+;; count ==> 2
