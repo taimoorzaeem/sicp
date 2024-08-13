@@ -119,3 +119,19 @@
 ;; (stream-ref factorials 3) ==> 24
 ;; (stream-ref factorials 5) ==> 720
 
+
+;; Ex 3.55
+;; ===========
+
+(define (partial-sums s)
+  (cons-stream (stream-car s) 
+               (add-streams (stream-cdr s) 
+                            (partial-sums s))))
+
+
+;; Output
+;;
+;; (stream-ref (partial-sums integers) 0) ==> 1
+;; (stream-ref (partial-sums integers) 1) ==> 3
+;; (stream-ref (partial-sums integers) 2) ==> 6
+;; (stream-ref (partial-sums integers) 3) ==> 10
