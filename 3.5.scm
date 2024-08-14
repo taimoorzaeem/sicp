@@ -169,3 +169,17 @@
                (merge (scale-stream S 2)
                       (merge (scale-stream S 3) 
                              (scale-stream S 5)))))
+
+;; Ex 3.58
+;; ============
+
+(define (expand num den radix)
+  (cons-stream
+   (quotient (* num radix) den)
+   (expand (remainder (* num radix) den) den radix)))
+
+;; Interpretation:
+;;
+;; The result is the floating-point representation of (/ num den) with
+;; radix as the base.
+;; (/ 1.0 7) ==> .142857142857...
