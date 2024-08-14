@@ -183,3 +183,21 @@
 ;; The result is the floating-point representation of (/ num den) with
 ;; radix as the base.
 ;; (/ 1.0 7) ==> .142857142857...
+
+
+;; Ex 3.59a
+;; ============
+
+(define (integrate-series series)
+  (stream-map / series integers))
+
+;; Ex 3.59b
+;; ============
+
+(define exp-series
+  (cons-stream 1 (integrate-series exp-series)))
+
+(define cosine-series 
+  (cons-stream 1 (integrate-series (scale-stream sine-series -1))))
+(define sine-series 
+  (cons-stream 0 (integrate-series cosine-series)))
