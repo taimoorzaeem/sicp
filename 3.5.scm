@@ -228,3 +228,15 @@
   (cons-stream 1 
                (mul-series (scale-stream (stream-cdr s) -1)
                            (invert-unit-series s))))
+
+
+;; Ex 3.62
+;; ============
+
+(define (div-series s1 s2)
+  (if (equal? (stream-car s2) 0)
+      (error "div-series: Denominator must not begin with a zero constant term")
+      (mul-series s1 (invert-unit-series s2))))
+
+(define tangent-series
+  (div-series sine-series cosine-series))
