@@ -219,3 +219,12 @@
 ;;                        (mul-series cosine-series cosine-series)))
 ;;
 ;; ==> {1 0 0 0 0 0 0 0 ...}
+
+
+;; Ex 3.61
+; =============
+
+(define (invert-unit-series s)
+  (cons-stream 1 
+               (mul-series (scale-stream (stream-cdr s) -1)
+                           (invert-unit-series s))))
