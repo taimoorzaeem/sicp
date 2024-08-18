@@ -47,3 +47,16 @@
 ;;      (salary ?a ?as)
 ;;      (salary ?b ?bs)
 ;;      (lisp-value < ?as ?bs))
+
+
+;; Ex 4.58
+;; ==============
+
+;; Queries:
+;; =======
+;; (rule (big-shot ?person ?division)
+;;    (and (job ?name (?division . ?title))
+;;         (supervisor ?name ?boss)
+;;         (job ?boss (?division-2 . ?title-2))
+;;         (not (same ?division ?division-2))))
+
