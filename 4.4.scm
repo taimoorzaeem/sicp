@@ -60,3 +60,17 @@
 ;;         (job ?boss (?division-2 . ?title-2))
 ;;         (not (same ?division ?division-2))))
 
+
+;; Ex 4.59
+;; ==============
+
+;; Queries:
+;; =======
+;; (meeting ?where (Friday ?time))
+;;
+;; (rule (meeting-time ?person ?day-and-time)
+;;       (or (and (job ?person (?division . ?title))
+;;                (meeting ?division ?day-and-time))
+;;           (meeting whole-company ?day-and-time)))
+;;
+;; (meeting-time (Hacker Alyssa P) (Wednesday ?time))
