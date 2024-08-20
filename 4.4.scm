@@ -88,3 +88,13 @@
 ;; (?x next-to 1 in (2 1 3 1))
 ;; ==> (3 next-to 1 in (2 1 3 1))
 ;;     (2 next-to 1 in (2 1 3 1))
+
+
+;; Ex 4.62
+;; ============
+
+;; Queries:
+;; =======
+;; (rule (last-pair (?x) (?x)))
+;; (rule (last-pair (?x . ?y) (?z))
+;;       (last-pair (?y) (?z)))
