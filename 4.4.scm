@@ -98,3 +98,13 @@
 ;; (rule (last-pair (?x) (?x)))
 ;; (rule (last-pair (?x . ?y) (?z))
 ;;       (last-pair (?y) (?z)))
+
+
+;; Ex 4.63
+;; ============
+
+;; Queries:
+;; =======
+;; (rule (grandson ?x ?y)
+;;       (and (son ?x ?z)
+;;            (son ?z ?y)))
