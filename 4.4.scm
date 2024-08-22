@@ -108,3 +108,13 @@
 ;; (rule (grandson ?x ?y)
 ;;       (and (son ?x ?z)
 ;;            (son ?z ?y)))
+
+
+;; Ex 4.64
+;; ============
+
+;; Answer:
+;;   The query (outranked-by (Bitdiddle Ben) ?who) computes
+;; (outranked-by ?middle-manager ?who) which performs the same
+;; operation again and again and this driving the system into
+;; an infinite loop.
