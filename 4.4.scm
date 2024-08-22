@@ -118,3 +118,12 @@
 ;; (outranked-by ?middle-manager ?who) which performs the same
 ;; operation again and again and this driving the system into
 ;; an infinite loop.
+
+
+;; Ex 4.68
+;; ===========
+
+;; (rule (reverse () ()))
+;; (rule (reverse (?h . ?t) ?y)
+;;       (and (reverse ?t ?reversed-t)
+;;            (append-to-form ?reversed-t (?h) ?y)))
