@@ -17,3 +17,18 @@
 ;;    (assign counter (reg t2))
 ;;    (goto (label test-counter))
 ;;  factorial-done)
+
+
+;; Ex 5.3
+;; ==========
+ 
+;; (controller
+;;   (assign x (op read))
+;;   (assign guess (const 1.0))
+;;  test-good
+;;   (test (op good-enough?) (reg guess) (reg x))
+;;   (branch (label sqrt-done))
+;;   (assign t (op improve) (reg guess) (reg x))
+;;   (assign guess (reg t))
+;;   (goto (label test-good))
+;;  sqrt-done)
