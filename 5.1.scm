@@ -32,3 +32,39 @@
 ;;   (assign guess (reg t))
 ;;   (goto (label test-good))
 ;;  sqrt-done)
+
+
+;; Ex 5.4
+;; ==========
+
+;; a)
+
+;; (controller
+;;   (assign continue (label expt-done))
+;;  expt-loop
+;;   (test (op =) (reg n) (const 0))
+;;   (branch (label base-case))
+;;   (save continue)
+;;   (assign n (op -) (reg n) (const 1))
+;;   (assign continue (label after-expt))
+;;   (goto (label expt-loop))
+;;  after-expt
+;;   (restore continue)
+;;   (assign val (op *) (reg n) (reg val))
+;;   (goto (reg continue))
+;;  base-case
+;;   (assign val (const 1))
+;;   (goto (reg continue))
+;;  expt-done)
+
+;; b)
+
+;; (controller
+;;   (assign val (const 1))
+;;  expt-loop
+;;   (test (op =) (reg n) (const 0))
+;;   (branch (label expt-done))
+;;   (assign val (op *) (reg val) (reg b))
+;;   (assign n (op -) (reg n) (const 1))
+;;   (goto (label expt-loop))
+;;  expt-done)
