@@ -68,3 +68,14 @@
 ;;   (assign n (op -) (reg n) (const 1))
 ;;   (goto (label expt-loop))
 ;;  expt-done)
+
+
+;; Ex 5.6
+;; ===========
+
+;; (restore continue)
+;; (assign n (op -) (reg n) (const 2))
+;; (save continue)
+
+;; In the instructions above the instructions restore and save are extra
+;; and hence should be removed.
