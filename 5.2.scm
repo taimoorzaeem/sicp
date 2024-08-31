@@ -384,3 +384,18 @@
               (operation-exp-operands exp))))
     (lambda ()
       (apply op (map (lambda (p) (p)) aprocs)))))
+
+
+
+;; Ex 5.13
+;; =============
+
+;; In make-new-machine, we will change the code of lookup-register
+
+;;  (define (lookup-register name)
+;;    (let ((val (assoc name register-table)))
+;;      (if val
+;;          (cadr val)
+;;          (begin
+;;            (allocate-register name)
+;;            (lookup-register name)))))
