@@ -201,3 +201,14 @@
       (interleave-delayed
        (qeval (first-disjunct disjuncts) frame-stream)
        (delay (disjoin (rest-disjuncts disjuncts) frame-stream)))))
+
+
+(define (negate operands frame-stream)
+  (stream-flatmap
+    (lambda (frame)
+      (if (stream-null? 
+           (qeval (negated-query operands) 
+                  (singleton-stream frame)))
+          (singleton-stream frame)
+           the-empty-stream))
+    frame-stream))
